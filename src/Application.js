@@ -15,21 +15,26 @@ class Application extends Component {
   }
 
   componentWillMount() {
-    // will change whenever there's a login to logout 
-    // or vice versa 
+    // will change whenever there's a login to logout
+    // or vice versa
     auth.onAuthStateChanged(currentUser => {
+      console.info("auth change", currentUser);
       this.setState({ currentUser });
     });
   }
 
   render() {
+    // pull current user off the state obj
+    const { currentUser } = this.state;
+
     return (
       <div className="Application">
         <header className="Application--header">
           <h1>Lunch Rush</h1>
         </header>
         <div>
-          <SignIn />
+          {!currentUser && <SignIn />}
+          {currentUser && <CurrentUser user={currentUser} />}
         </div>
       </div>
     );
