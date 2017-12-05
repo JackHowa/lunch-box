@@ -12,14 +12,20 @@ class Application extends Component {
     this.state = {
       currentUser: null
     };
+
+    // setup the path in db
+    this.restaurantRef = database.ref("/restaurants");
   }
 
   componentWillMount() {
     // will change whenever there's a login to logout
     // or vice versa
+    // already listening here
     auth.onAuthStateChanged(currentUser => {
-      console.info("auth change", currentUser);
       this.setState({ currentUser });
+      this.restaurantRef.on("value", snapshot => {
+        console.log(snapshot.val()); // { name: "df"}
+      });
     });
   }
 
