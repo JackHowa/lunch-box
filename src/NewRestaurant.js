@@ -31,10 +31,8 @@ class NewRestaurant extends Component {
       name
     } = this.state;
 
-    return ( <
-      form className = "NewRestaurant" >
-      <
-      input type = "text"
+    return ( <form className = "NewRestaurant" >
+      <input type = "text"
       value = {
         name
       }
@@ -44,15 +42,12 @@ class NewRestaurant extends Component {
           name: event.target.value
         })
       }
-      /> <
-      button onClick = {
+      /> <button onClick = {
         this.handleSubmit
       }
       disabled = {!name
       } >
-      Submit <
-      /button> <
-      /form>
+      Submit </button> </form>
     );
   }
 }

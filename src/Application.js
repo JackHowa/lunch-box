@@ -4,16 +4,20 @@ import CurrentUser from "./CurrentUser";
 import SignIn from "./SignIn";
 import NewRestaurant from "./NewRestaurant";
 import Restaurants from "./Restaurants";
+import map from 'lodash/map';
+
 import "./Application.css";
 
 class Application extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null
+      currentUser: null,
+      restaurants: null
     };
 
     // setup the path in db
+    // ref is the branch on which firebase happens 
     this.restaurantRef = database.ref("/restaurants");
   }
 
@@ -23,15 +27,17 @@ class Application extends Component {
     // already listening here
     auth.onAuthStateChanged(currentUser => {
       this.setState({ currentUser });
+
+      // only listen for values once the user has logged in 
       this.restaurantRef.on("value", snapshot => {
-        console.log(snapshot.val()); // { name: "df"}
+        this.setState({ restaurants: snapshot.val() });
       });
     });
   }
 
   render() {
     // pull current user off the state obj
-    const { currentUser } = this.state;
+    const { currentUser, restaurants } = this.state;
 
     return (
       <div className="Application">
@@ -43,6 +49,8 @@ class Application extends Component {
           {currentUser && (
             <div>
               <NewRestaurant />
+              <Restaurants restaurants={restaurants} />
+              {/* { map(restaurants, (restaurant, key) => <p key={key}>{ restaurant.name } </p> )} */}
               <CurrentUser user={currentUser} />
             </div>
           )}

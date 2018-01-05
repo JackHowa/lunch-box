@@ -9,15 +9,17 @@ class Restaurants extends Component {
   }
 
   render () {
+    const { restaurants } = this.props;
     return (
       <section className="Restaurants">
+        { map(restaurants, (restaurant, key) => <Restaurant key={key} {...restaurant} />) }
       </section>
     );
   }
 }
 
 Restaurants.propTypes = {
-  user: PropTypes,
+  user: PropTypes.object,
   restaurantsRef: PropTypes.object,
   restaurants: PropTypes.object
 };
