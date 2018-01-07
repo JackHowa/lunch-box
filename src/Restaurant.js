@@ -9,6 +9,7 @@ class Restaurant extends Component {
     return (
       <article className="Restaurant">
         <h3>{name}</h3>
+        <ul>{votes && map(votes, (vote, key) => <li key={key}>{vote}</li>)}</ul>
         <button onClick={handleSelect}>Vote!</button>
       </article>
     );
