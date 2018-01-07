@@ -4,12 +4,12 @@ import "./Restaurant.css";
 
 class Restaurant extends Component {
   render() {
-    const { name } = this.props;
+    const { name, handleSelect, handleDeselect } = this.props;
 
     return (
       <article className="Restaurant">
         <h3>{name}</h3>
-        <button>Vote!</button>
+        <button onClick={handleSelect}>Vote!</button>
       </article>
     );
   }

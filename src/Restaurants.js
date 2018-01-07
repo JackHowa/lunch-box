@@ -1,18 +1,50 @@
-import React, { Component, PropTypes } from 'react';
-import Restaurant from './Restaurant';
-import map from 'lodash/map';
-import './Restaurants.css';
+import React, { Component, PropTypes } from "react";
+import Restaurant from "./Restaurant";
+import map from "lodash/map";
+import { database } from "./firebase";
+import "./Restaurants.css";
 
 class Restaurants extends Component {
   constructor(props) {
     super(props);
   }
 
-  render () {
+  // stub out the functionality
+  handleSelect(key) {
+    const currentUser = this.props.user;
+    database
+      .ref("/restaurants")
+      .child(key)
+      .child("votes")
+      .child(currentUser.uid)
+      .set(currentUser.displayName);
+  }
+
+  handleDeselect(key) {
+    const currentUser = this.props.user;
+    database
+      .ref("/restaurants")
+      .child(key)
+      .child("votes")
+      .child(currentUser.uid)
+      // can set to null or remove
+      .remove(currentUser.displayName);
+  }
+
+  render() {
     const { restaurants } = this.props;
     return (
       <section className="Restaurants">
-        { map(restaurants, (restaurant, key) => <Restaurant key={key} {...restaurant} />) }
+        {map(restaurants, (restaurant, key) => {
+          return (
+            <Restaurant
+              key={key}
+              {...restaurant}
+              handleSelect={() => this.handleSelect(key)}
+              handleDeselect={() => this.handleDeselect(key)}
+            />
+          );
+        })}
       </section>
     );
   }
