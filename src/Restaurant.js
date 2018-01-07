@@ -4,7 +4,7 @@ import "./Restaurant.css";
 
 class Restaurant extends Component {
   render() {
-    const { name, handleSelect, handleDeselect } = this.props;
+    const { name, votes, handleSelect, handleDeselect } = this.props;
 
     return (
       <article className="Restaurant">
