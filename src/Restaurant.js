@@ -1,14 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-import map from 'lodash/map';
-import './Restaurant.css';
+import React, { Component, PropTypes } from "react";
+import map from "lodash/map";
+import "./Restaurant.css";
 
 class Restaurant extends Component {
-  render () {
+  render() {
     const { name } = this.props;
 
     return (
       <article className="Restaurant">
-        <h3>{ name }</h3>
+        <h3>{name}</h3>
+        <button>Vote!</button>
       </article>
     );
   }
